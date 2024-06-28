@@ -1,0 +1,141 @@
+<div class="card card-custom gutter-b">
+    <div class="card-header">
+        <div class="card-title">
+            <span class="card-label">{{'DOITACBAOHIEMMANAGEMENT.DOITACBAOHIEM'| translate}}</span>
+        </div>
+        <div class="card-toolbar" style="margin-left: 550px;">
+            <button mat-raised-button class="ja_btn-addnew"  *ngIf="Visible" (click)="import()">{{'DOITACBAOHIEMMANAGEMENT.IMPORT' |
+                translate}}</button>
+        </div>
+        <div class="card-toolbar">
+            <button mat-raised-button class="ja_btn-addnew"  *ngIf="Visible"
+                (click)="create()">{{'DOITACBAOHIEMMANAGEMENT.THEMDOITACBAOHIEM' |
+                translate}}</button>
+        </div>
+    </div>
+
+    <!-- body -->
+    <div class="card-body">
+        <div class="kt-form">
+            <div class="kt-form__filtration">
+                <div class="row align-items-center">
+                    <div class="col-md-4 kt-margin-bottom-10-mobile" [formGroup]="searchGroup">
+                        <mat-form-field class="mat-form-field-fluid" style="margin-left: 10px;">
+                            <input matInput placeholder="Tìm kiếm theo tên đơn vị, người liên hệ hoặc số điện thoại"
+                                #searchInput name="searchText" formControlName="searchTerm" />
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive angular-bootstrap-table" [ngStyle]="{ height: getHeight() }">
+            <table mat-table class=" table table-head-custom table-vertical-center overflow-hidden "
+                [dataSource]="doitacbaohiemManagementService.items$ | async">
+                <!-- <ng-container matColumnDef="CheckBox">
+                <th
+                  mat-header-cell
+                  *matHeaderCellDef
+                  class="mat-column-vinCode"
+                  style="width: 10%; text-align: center"
+                >
+                  <mat-checkbox> </mat-checkbox>
+                </th>
+                <td
+                  mat-cell
+                  *matCellDef="let r"
+                  class="mat-column-vinCode"
+                  style="text-align: center"
+                >
+                  <mat-checkbox> </mat-checkbox>
+            
+                </td>
+              </ng-container> -->
+                <ng-container matColumnDef="stt">
+                    <th *matHeaderCellDef class="mat-column-vinCode">
+                        <span>STT</span>
+                        <app-sort-icon column="stt" [activeColumn]="sorting.column"
+                            [activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+                    </th>
+                    <td mat-cell *matCellDef="let r; let i = index">
+                        <span>{{ i + 1}}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="TenDonVi">
+                    <th *matHeaderCellDef class="mat-column-vinCode">
+                        <span>Tên đơn vị</span>
+                        <app-sort-icon column="TenDonVi" [activeColumn]="sorting.column"
+                            [activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+                    </th>
+                    <td mat-cell *matCellDef="let r">
+                        <span>{{r.TenDonVi}}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="DiaChi">
+                    <th *matHeaderCellDef class="mat-column-vinCode">
+                        <span>Địa chỉ</span>
+                        <app-sort-icon column="DiaChi" [activeColumn]="sorting.column"
+                            [activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+                    </th>
+                    <td mat-cell *matCellDef="let r">
+                        <span>{{r.DiaChi}}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="SoDT">
+                    <th *matHeaderCellDef class="mat-column-vinCode">
+                        <span>Số điện thoại</span>
+                        <app-sort-icon column="SoDT" [activeColumn]="sorting.column"
+                            [activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+                    </th>
+                    <td mat-cell *matCellDef="let r">
+                        <span>{{r.SoDT}}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="NguoiLienHe">
+                    <th *matHeaderCellDef class="mat-column-vinCode">
+                        <span>Người liên hệ</span>
+                        <app-sort-icon column="NguoiLienHe" [activeColumn]="sorting.column"
+                            [activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+                    </th>
+                    <td mat-cell *matCellDef="let r">
+                        <span>{{r.NguoiLienHe}}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="GhiChu">
+                    <th *matHeaderCellDef class="mat-column-vinCode">
+                        <span>ghi chú</span>
+                        <app-sort-icon column="GhiChu" [activeColumn]="sorting.column"
+                            [activeDirection]="sorting.direction" (sort)="sort($event)"></app-sort-icon>
+                    </th>
+                    <td mat-cell *matCellDef="let r">
+                        <span>{{r.GhiChu}}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="thaotac">
+                    <th *matHeaderCellDef style="text-align: center">
+                        <span>{{'COMMOM.THAOTHAC' | translate}}</span>
+                    </th>
+                    <td mat-cell *matCellDef="let r" style="text-align: center">
+                        <mat-icon (click)="update(r)" style="cursor: pointer; color: #1BC5BD; font-size:16px"
+                            aria-hidden="false"  *ngIf="Visible">
+                            mode_edit</mat-icon>
+                        &nbsp;
+                        <mat-icon (click)="delete(r)" style="cursor: pointer; color: #f52020; font-size: 16px"
+                            aria-hidden="false"  *ngIf="Visible">
+                            delete</mat-icon>
+                        &nbsp;
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef=" displayedColumns; sticky: true">
+                </tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"
+                    (click)="row.highlighted = !row.highlighted;"
+                    [ngClass]="{ hovered: row.hovered, highlighted: row.highlighted }" (mouseover)="row.hovered = true"
+                    (mouseout)="row.hovered = false"></tr>
+            </table>
+        </div>
+        <!-- end: Table -->
+        <app-paginator class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator"
+            [isLoading]="isLoading" (paginate)="paginate($event)"></app-paginator>
+    </div>
+</div>

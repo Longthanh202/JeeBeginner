@@ -1,0 +1,323 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <div class="modal-title h4" id="example-modal-sizes-title-lg">
+      <span class="dialog-title">{{ 'customermanagement.importkhachang' | translate }}</span>
+    </div>
+    <div class="modal-title" style="display: inline">
+      <button
+        [disabled]="isLoadingSubmit$ | async"
+        [class.spinner]="isLoadingSubmit$ | async"
+        mat-raised-button
+        style="float: right; margin: 0"
+        class="ja_btn-addnew"
+        (click)="onSubmit()"
+      >
+        {{ 'COMMOM.LUU' | translate }}
+      </button>
+      <button mat-raised-button style="float: right; margin: 0; margin-right: 12px" class="ja_btn-goback" (click)="goBack()">
+        {{ 'COMMOM.TROLAI' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <div class="overlay overlay-block cursor-default modal-body overflow-auto" style="min-height: 404px; max-height: 70vh">
+    <ng-container *ngIf="customerManagementService.isLoading$ | async">
+      <div class="overlay-layer bg-transparent">
+        <div class="spinner spinner-lg spinner-success"></div>
+      </div>
+    </ng-container>
+    <ng-container>
+      <div>
+        <p><b>Lưu ý:</b></p>
+        <p>1. CustomerID đã tạo trong JeeHR nhưng chưa tạo trong hệ thống Jeeflatform.</p>
+        <p>2. Mã code phải giống bên JeeHR (kể cả viết thường và viêt hoa).</p>
+        <p>3. Username phải giống bên JeeHR (kể cả viết thường và viêt hoa).</p>
+        <p>4. StaffID đã tạo trong JeeHR.</p>
+        <p>5. Trong quá trình import thì không thể hoàn tác.</p>
+        <p>6. Trường hợp customerID đã tồn tại trong JeeflatForm thì không thể import.</p>
+      </div>
+      <form action="#" class="form form-label-right" [formGroup]="formGroup">
+        <div class="form-group row">
+          <div class="col-lg-4">
+            <mat-form-field class="example-full-width">
+              <input
+                class="input-batbuoc mat-focused required"
+                required
+                matInput
+                type="text"
+                formControlName="tencongty"
+                placeholder="{{ 'customermanagement.tencongty' | translate }}"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4">
+            <mat-form-field class="example-full-width">
+              <input
+                class="input-batbuoc mat-focused required"
+                required
+                matInput
+                type="text"
+                formControlName="diachi"
+                placeholder="{{ 'customermanagement.diachi' | translate }}"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2">
+            <mat-form-field class="example-full-width">
+              <input
+                class="input-batbuoc mat-focused required"
+                required
+                matInput
+                type="text"
+                formControlName="customerID"
+                placeholder="CustomerID"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2">
+            <mat-form-field class="example-full-width">
+              <input
+                class="input-batbuoc mat-focused required"
+                required
+                matInput
+                type="text"
+                formControlName="code"
+                placeholder="{{ 'customermanagement.code' | translate }}"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-4">
+            <mat-form-field class="example-full-width">
+              <input
+                class="input-batbuoc mat-focused required"
+                required
+                matInput
+                type="text"
+                formControlName="nguoidaidien"
+                placeholder="{{ 'customermanagement.nguoidaidien' | translate }}"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2">
+            <mat-form-field class="example-full-width">
+              <mat-select formControlName="gioitinh">
+                <mat-option value="Nam">Nam</mat-option>
+                <mat-option value="Nữ">Nữ</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2">
+            <mat-form-field class="example-full-width">
+              <input
+                class="input-batbuoc mat-focused required"
+                required
+                matInput
+                type="text"
+                formControlName="sodienthoai"
+                placeholder="{{ 'customermanagement.sodienthoai' | translate }}"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2">
+            <mat-form-field class="example-full-width">
+              <input
+                class="input-thuong mat-focused"
+                matInput
+                type="text"
+                formControlName="email"
+                placeholder="{{ 'customermanagement.email' | translate }}"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2">
+            <mat-form-field class="example-full-width">
+              <input
+                required
+                class="input-batbuoc mat-focused required"
+                matInput
+                type="text"
+                formControlName="staffid"
+                placeholder="StaffID"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-4">
+            <mat-form-field class="example-full-width">
+              <input
+                class="input-batbuoc mat-focused required"
+                formControlName="ngaybatdausudung"
+                matInput
+                [matDatepicker]="pickerStart"
+                placeholder="{{ 'customermanagement.ngaybatdausudung' | translate }}"
+              />
+              <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+              <mat-datepicker #pickerStart></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4">
+            <mat-form-field class="example-full-width">
+              <input
+                class="input-thuong"
+                formControlName="ngayhethan"
+                matInput
+                [matDatepicker]="pickerEnd"
+                placeholder="{{ 'customermanagement.ngayhethan' | translate }}"
+              />
+              <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+              <mat-datepicker #pickerEnd></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4">
+            <mat-form-field class="example-full-width">
+              <input
+                class="input-thuong mat-focused"
+                matInput
+                type="text"
+                formControlName="linhvuchoatdong"
+                placeholder="{{ 'customermanagement.linhvuchoatdong' | translate }}"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-4">
+            <mat-form-field class="example-full-width">
+              <input
+                (keydown)="eventHandler($event)"
+                class="input-batbuoc mat-focused required"
+                required
+                matInput
+                type="text"
+                formControlName="username"
+                placeholder="{{ 'customermanagement.taikhoan' | translate }}"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4">
+            <mat-form-field class="example-full-width">
+              <input
+                class="input-batbuoc mat-focused required"
+                required
+                matInput
+                type="password"
+                formControlName="password"
+                placeholder="{{ 'customermanagement.matkhau' | translate }}"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4">
+            <mat-form-field class="example-full-width">
+              <input
+                class="input-batbuoc mat-focused required"
+                required
+                matInput
+                type="password"
+                formControlName="repassword"
+                placeholder="{{ 'customermanagement.rematkhau' | translate }}"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-lg-12">
+            <mat-form-field class="example-full-width">
+              <input
+                class="input-thuong mat-focused"
+                matInput
+                type="text"
+                formControlName="ghichu"
+                placeholder="{{ 'customermanagement.ghichu' | translate }}"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+    <div class="card-body" style="padding: 0 !important">
+      <div class="table-responsive angular-bootstrap-table">
+        <table mat-table class="table table-head-custom table-vertical-center overflow-hidden" [dataSource]="appCodes$ | async">
+          <ng-container matColumnDef="select">
+            <th *matHeaderCellDef>
+              <mat-checkbox
+                (change)="$event ? masterToggle() : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()"
+              >
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox
+                (click)="$event.stopPropagation()"
+                (change)="$event ? selection.toggle(row.AppID) : null"
+                [checked]="selection.isSelected(row.AppID)"
+                [disabled]="disableApp(row.AppID)"
+              >
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tenapp">
+            <th *matHeaderCellDef>
+              <span>{{ 'customermanagement.tenapp' | translate }}</span>
+            </th>
+            <td mat-cell *matCellDef="let r">
+              {{ r.AppName }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="goisudung">
+            <th *matHeaderCellDef>
+              <span>{{ 'customermanagement.goisudung' | translate }}</span>
+            </th>
+            <td mat-cell *matCellDef="let r; let i = index">
+              <mat-form-field>
+                <mat-select [formControl]="goisudungArrayFrom[i]">
+                  <mat-option *ngFor="let pakage of r.LstPakage" [value]="pakage.RowID">{{ pakage.Title }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="soluongnhansu">
+            <th *matHeaderCellDef>
+              <mat-form-field class="example-full-width">
+                <input
+                  [formControl]="inputSoLuongForm"
+                  (change)="changeSoLuong()"
+                  class="input-thuong mat-focused"
+                  matInput
+                  type="text"
+                  placeholder="{{ 'customermanagement.soluongnhansu' | translate }}"
+                />
+              </mat-form-field>
+            </th>
+            <td mat-cell *matCellDef="let r; let i = index">
+              <mat-form-field class="example-full-width">
+                <input
+                  [formControl]="soluongnhansuArrayFrom[i]"
+                  class="input-batbuoc mat-focused required"
+                  required
+                  matInput
+                  type="text"
+                  disabled
+                />
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+            (click)="row.highlighted = !row.highlighted"
+            [ngClass]="{ hovered: row.hovered, highlighted: row.highlighted }"
+            (mouseover)="row.hovered = true"
+            (mouseout)="row.hovered = false"
+          ></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

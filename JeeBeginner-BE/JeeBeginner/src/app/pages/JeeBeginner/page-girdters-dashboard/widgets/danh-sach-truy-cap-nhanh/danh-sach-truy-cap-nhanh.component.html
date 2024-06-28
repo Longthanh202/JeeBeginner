@@ -1,0 +1,65 @@
+<style>
+  .row-class {
+    padding-bottom: 10px;
+    font-size: 12pt;
+    font-weight: bold;
+  }
+
+  .row-hoten-class {
+    color: green
+  }
+
+  .row-ngaysinh-class {
+    color: orange
+  }
+
+  .row-form-class {
+    height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+
+  :host>>>perfect-scrollbar>.ps.ps--active-x>.ps__rail-x {
+    display: none;
+  }
+
+  .row {
+    margin-right: 0px !important;
+  }
+
+  :host>>>.m-scrollable {
+    padding-right: 2px !important;
+  }
+
+  ::ng-deep m-danh-sach-truy-cap-nhanh-widget .m-portlet--head-lg.m-portlet--full-height.m-portlet--rounded-force {
+    margin: 0;
+  }
+</style>
+<div class="card card-custom" style="color: #4169e1;">
+  <perfect-scrollbar class="m-scrollable m-scroller">
+    <div class="m-form" *ngIf="listTruyCap.length > 0" style="display: grid;">
+      <div class="row row-class" style="margin: 10px;">
+        <a class="nav-link link-class col-md-4" [routerLink]="list.Alink" *ngFor="let list of listTruyCap"
+          [ngStyle]="{display: list.Target == 'container' ? 'block' : 'none'}" style="max-width: 31% !important;">
+          <div class="row" style="display: flex;justify-content: center">
+            <span><i [ngClass]="list.Icon" class="icon-class"></i></span>
+          </div>
+          <div class="row" style="display: flex;justify-content: center">
+            <span class="text-class">{{list.Title}}</span>
+          </div>
+        </a>
+        <a class="nav-link link-class col-md-4" [routerLink]="list.Alink" *ngFor="let list of listTruyCap"
+          [ngStyle]="{display: list.Target != 'container' ? 'block' : 'none'}" target="_blank"
+          style="max-width: 31% !important;">
+          <div class="row" style="display: flex;justify-content: center">
+            <span><i [ngClass]="list.Icon" class="icon-class"></i></span>
+          </div>
+          <div class="row" style="display: flex;justify-content: center">
+            <span class="text-class">{{list.Title}}</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </perfect-scrollbar>
+</div>

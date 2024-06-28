@@ -1,0 +1,244 @@
+<div class="card card-custom gutter-b">
+  <div class="card-header">
+    <div class="card-title">
+      <span class="card-label">{{ 'customermanagement.title' | translate }}</span>
+    </div>
+    <div class="card-search">
+      <app-jee-search-form
+        [showSearch]="showSearch"
+        (keywordEvent)="changeKeyword($event)"
+        (filterEvent)="changeFilter($event)"
+      ></app-jee-search-form>
+    </div>
+    <div class="card-toolbar">
+      <button mat-raised-button class="ja_btn_tatca" (click)="import()">{{ 'COMMOM.IMPORTKHACHHANG' | translate }}</button>
+    </div>
+    &nbsp;&nbsp;
+    <div class="card-toolbar">
+      <button mat-raised-button class="ja_btn-addnew" (click)="create()">{{ 'COMMOM.THEMKHACHHANG' | translate }}</button>
+    </div>
+  </div>
+  <div class="card-header">
+    <div class="card-title"></div>
+    <div class="card-toolbar">
+      <button
+        [class.spinner]="loadingDateFilter$ | async"
+        (click)="filterDaKhoa()"
+        style="background-color: white; color: black"
+        mat-raised-button
+        class="ja_btn_dangsudung"
+      >
+        {{ 'customermanagement.dakhoa' | translate }} <span *ngIf="dateFilter"> ({{ dateFilter.IsLock }})</span></button
+      >&nbsp;&nbsp;
+      <button
+        [class.spinner]="loadingDateFilter$ | async"
+        (click)="filterDangSuDung()"
+        style="background-color: white; color: #3699ff"
+        mat-raised-button
+        class="ja_btn_dangsudung"
+      >
+        {{ 'customermanagement.dangsudung' | translate }} <span *ngIf="dateFilter"> ({{ dateFilter.IsUsed }})</span></button
+      >&nbsp;&nbsp;
+      <button
+        [class.spinner]="loadingDateFilter$ | async"
+        (click)="filterSapHetHan()"
+        style="background-color: white; color: #1bc5bd"
+        mat-raised-button
+        class="ja_btn_saphethan"
+      >
+        {{ 'customermanagement.saphethan' | translate }} <span *ngIf="dateFilter"> ({{ dateFilter.SapHetHan }})</span></button
+      >&nbsp;&nbsp;
+      <button
+        [class.spinner]="loadingDateFilter$ | async"
+        (click)="filterDaHetHan()"
+        style="background-color: white; color: #f64e60"
+        mat-raised-button
+        class="ja_btn_dahethan"
+      >
+        {{ 'customermanagement.dahethan' | translate }} <span *ngIf="dateFilter"> ({{ dateFilter.HetHan }})</span></button
+      >&nbsp;&nbsp;
+      <button
+        [class.spinner]="loadingDateFilter$ | async"
+        (click)="filterAll()"
+        style="background-color: white; color: #16a850"
+        mat-raised-button
+        class="ja_btn_tatca"
+      >
+        {{ 'customermanagement.tatca' | translate }} <span *ngIf="dateFilter"> ({{ dateFilter.All }})</span>
+      </button>
+    </div>
+  </div>
+  <!-- body -->
+  <div class="card-body">
+    <div class="table-responsive angular-bootstrap-table" [ngStyle]="{ height: getHeight() }">
+      <table
+        mat-table
+        class="table table-head-custom table-vertical-center overflow-hidden"
+        [dataSource]="customerManagementService.items$ | async"
+      >
+        <ng-container matColumnDef="thongtinkhachhang">
+          <th *matHeaderCellDef class="mat-column-vinCode">
+            <span>{{ 'customermanagement.thongtinkhachhang' | translate }}</span>
+            <app-sort-icon
+              column="thongtinkhachhang"
+              [activeColumn]="sorting.column"
+              [activeDirection]="sorting.direction"
+              (sort)="sort($event)"
+            ></app-sort-icon>
+          </th>
+          <td mat-cell *matCellDef="let r" [routerLink]="['info/', r.RowID]">
+            <div class="row">
+              <span style="font-weight: 600"> {{ r.Code }}: &nbsp;</span>
+              <span>{{ r.CompanyName }} &nbsp;- &nbsp;</span>
+              <span> {{ getDate(r.RegisterDate) }}</span>
+            </div>
+            <div class="row">
+              <span style="font-weight: 600"> {{ r.RegisterName }}:&nbsp; </span>
+              <span style="font-style: italic"
+                >{{ 'customermanagement.taoboijeecustomer' | translate }} &nbsp;{{ getDateTime(r.RegisterDate) }}</span
+              >
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="thongtinnguoihotro">
+          <th *matHeaderCellDef style="text-align: center">
+            <span>{{ 'customermanagement.thongtinnguoihotro' | translate }}</span>
+          </th>
+          <td mat-cell *matCellDef="let r" style="text-align: center">
+            <div style="cursor: pointer">
+              <span>
+                <mat-icon>person_add</mat-icon>
+              </span>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dienthoainguoidaidien">
+          <th *matHeaderCellDef>
+            <span>{{ 'customermanagement.dienthoainguoidaidien' | translate }}</span>
+            <app-sort-icon
+              column="dienthoainguoidaidien"
+              [activeColumn]="sorting.column"
+              [activeDirection]="sorting.direction"
+              (sort)="sort($event)"
+            ></app-sort-icon>
+          </th>
+          <td mat-cell *matCellDef="let r">
+            <span>{{ r.Phone }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="thongtinsudung">
+          <th *matHeaderCellDef>
+            <span>{{ 'customermanagement.thongtinsudung' | translate }}</span>
+          </th>
+          <td mat-cell *matCellDef="let r">
+            <div class="row">
+              <span>{{ 'customermanagement.soluonghoso' | translate }}</span>
+            </div>
+            <div class="row">
+              <span>{{ 'customermanagement.ngaydenhan' | translate }}</span>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ThaoTac">
+          <th *matHeaderCellDef style="text-align: center">
+            <span>{{ 'COMMOM.THAOTAC' | translate }}</span>
+          </th>
+          <td mat-cell *matCellDef="let item; let vi = index">
+            <button mat-icon-button [matMenuTriggerFor]="menu" #trigger="matMenuTrigger">
+              <!-- <mat-icon>more_horiz</mat-icon> -->
+              <i class="flaticon-more-v2 color_more"></i>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button
+                (click)="giaHan(item)"
+                mat-menu-item
+                type="button"
+                matTooltip="{{ 'customermanagement.giahanngaysudung' | translate }}"
+              >
+                <span style="color: #a900fe; cursor: pointer">
+                  <mat-icon style="color: #a900fe">date_range</mat-icon>{{ 'customermanagement.giahanngaysudung' | translate }}
+                </span>
+              </button>
+              <button
+                (click)="addNumberStaff(item)"
+                mat-menu-item
+                type="button"
+                matTooltip="{{ 'customermanagement.themsoluongnhanvien' | translate }}"
+              >
+                <span style="color: #ffa800">
+                  <mat-icon style="color: #ffa800">person_add</mat-icon>{{ 'customermanagement.themsoluongnhanvien' | translate }}
+                </span>
+              </button>
+              <button
+                (click)="addDeleteApp(item)"
+                mat-menu-item
+                type="button"
+                matTooltip="{{ 'customermanagement.resetmatkhau' | translate }}"
+              >
+                <span style="color: #1bc5bd">
+                  <mat-icon style="color: #1bc5bd">apps</mat-icon>{{ 'customermanagement.themxoaungdung' | translate }}
+                </span>
+              </button>
+              <button
+                (click)="resetPassword(item)"
+                mat-menu-item
+                type="button"
+                matTooltip="{{ 'customermanagement.resetmatkhau' | translate }}"
+              >
+                <span style="color: #0083fe">
+                  <mat-icon style="color: #0083fe">cached</mat-icon>{{ 'customermanagement.resetmatkhau' | translate }}
+                </span>
+              </button>
+              <button
+                *ngIf="item.Status == 1"
+                (click)="lockCustomer(item)"
+                mat-menu-item
+                type="button"
+                matTooltip="{{ 'customermanagement.khoakhachhang' | translate }}"
+              >
+                <span style="color: #fe0058">
+                  <mat-icon style="color: #fe0058">enhanced_encryption</mat-icon>
+                  {{ 'customermanagement.khoakhachhang' | translate }}
+                </span>
+              </button>
+              <button
+                *ngIf="item.Status == 0"
+                (click)="unLockCustomer(item)"
+                mat-menu-item
+                type="button"
+                matTooltip="{{ 'customermanagement.khoakhachhang' | translate }}"
+              >
+                <span style="color: #fe0058">
+                  <mat-icon style="color: #fe0058">lock_open</mat-icon>
+                  {{ 'customermanagement.mokhoakhachhang' | translate }}
+                </span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          (click)="row.highlighted = !row.highlighted"
+          [ngClass]="{ hovered: row.hovered, highlighted: row.highlighted }"
+          (mouseover)="row.hovered = true"
+          (mouseout)="row.hovered = false"
+          style="cursor: pointer"
+        ></tr>
+      </table>
+    </div>
+    <!-- end: Table -->
+    <app-paginator
+      class="d-flex justify-content-between align-items-center flex-wrap"
+      [paginator]="paginator"
+      [isLoading]="isLoading"
+      (paginate)="paginate($event)"
+    ></app-paginator>
+  </div>
+</div>

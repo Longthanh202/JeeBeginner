@@ -1,0 +1,75 @@
+<style>
+  .view {
+    padding-bottom: 15px;
+  }
+
+  .css-button-green {
+    background-color: green;
+    color: #fff;
+
+  }
+
+  .css-button-blue {
+    background-color: darkblue;
+    color: #fff;
+  }
+
+  .setting {
+    color: blue;
+  }
+
+  .setting:hover {
+    font-style: italic;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  :host>>>.card-body {
+    padding: 0px !important;
+  }
+</style>
+
+
+
+<div class="card card-custom">
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class="card-label">Cấu hình widget</h3>
+    </div>
+    <div class="card-toolbar">
+      <button (click)="goBack()" mat-button mat-icon-button>
+        <i class="flaticon2-cancel-music"></i>
+      </button>
+    </div>
+  </div>
+  <div class="card-body">
+    <table class="table table-head-custom table-vertical-center" id="kt_advance_table_widget_1">
+      <thead>
+        <tr class="text-left">
+          <th class="pr-0" style="width: 500px"><span class="text-uppercase">Tiêu đề</span>
+          </th>
+          <th style="min-width: 180px"><span class="text-uppercase">Tắt/Mở</span></th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of showWidgets">
+          <td>
+            <span translate="{{item.name}}"></span>&nbsp;
+          </td>
+          <td>
+            <mat-slide-toggle [checked]="item.isHienThi" (change)="ChangInfo($event, item)">
+            </mat-slide-toggle>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- <div class="modal-footer" style="justify-content: center;padding: 0px 0 15px 0px;border-top: 0px">
+<div class="row text-center">
+  <button  mat-raised-button type="button" style="background-color: #B6B9BF;color:#FFFFFF" (click)="close()">
+      Trở lại
+  </button>&nbsp;
+</div>
+</div> -->
+</div>

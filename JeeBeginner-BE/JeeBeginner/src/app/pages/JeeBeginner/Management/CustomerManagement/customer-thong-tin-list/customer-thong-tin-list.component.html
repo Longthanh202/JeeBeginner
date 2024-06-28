@@ -1,0 +1,93 @@
+<div class="card card-custom gutter-b">
+  <div class="card-header">
+    <div class="card-title">
+      <span class="card-label" *ngIf="customerModel">{{customerModel.CompanyName}} </span>
+    </div>
+    <div class="card-toolbar">
+      <button mat-raised-button class="ja_btn-addnew" (click)="goBack()">{{'COMMOM.TROLAI' |
+        translate}}</button>
+    </div>
+  </div>
+  <div class="card-header">
+    <div class="card-title">
+      <span class="card-label">{{'CUSTOMER_INFO.NGAYDANGKI'| translate}}
+        <span *ngIf="customerModel" style="font-weight: 900;">
+          {{format_date(customerModel.RegisterDate)}}</span>
+      </span>
+    </div>
+  </div>
+  <!-- body -->
+  <div class="card-body">
+    <div class="table-responsive angular-bootstrap-table" [ngStyle]="{ height: getHeight() }">
+      <table mat-table class=" table table-head-custom table-vertical-center overflow-hidden "
+        [dataSource]="customerThongTinService.items$ | async">
+        <ng-container matColumnDef="stt">
+          <th *matHeaderCellDef class="mat-column-vinCode">
+            <span>STT</span>
+            <app-sort-icon column="stt" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+              (sort)="sort($event)"></app-sort-icon>
+          </th>
+          <td mat-cell *matCellDef="let r; let i = index">
+            <span>{{ i + 1}}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tenungdung">
+          <th *matHeaderCellDef>
+            <span>{{'CUSTOMER_INFO.TENUNGDUNG' | translate}}</span>
+            <app-sort-icon column="tenungdung" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+              (sort)="sort($event)"></app-sort-icon>
+          </th>
+          <td mat-cell *matCellDef="let r">
+            <span>{{ r.AppName }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ngayhethan">
+          <th *matHeaderCellDef>
+            <span>{{'CUSTOMER_INFO.NGAYHETHAN' | translate}}</span>
+            <app-sort-icon column="ngayhethan" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+              (sort)="sort($event)"></app-sort-icon>
+          </th>
+          <td mat-cell *matCellDef="let r">
+            <span>{{ r.EndDate }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tinhtrang">
+          <th *matHeaderCellDef>
+            <span>{{'PARTNERMANAGEMENT.TINHTRANG' | translate}}</span>
+            <app-sort-icon column="tinhtrang" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
+              (sort)="sort($event)"></app-sort-icon>
+          </th>
+          <td mat-cell *matCellDef="let r">
+            <span class="switch switch-icon">
+              <label>
+                <input (click)="updateStatus(r)" type="checkbox" [(ngModel)]="r.Status" />
+                <span></span>
+              </label>
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ghichu">
+          <th *matHeaderCellDef>
+            <span>{{'COMMOM.GHICHU' | translate}}</span>
+          </th>
+          <td mat-cell *matCellDef="let r">
+            <span>{{ r.Note }}</span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef=" displayedColumns; sticky: true">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="row.highlighted = !row.highlighted;"
+          [ngClass]="{ hovered: row.hovered, highlighted: row.highlighted }" (mouseover)="row.hovered = true"
+          (mouseout)="row.hovered = false"></tr>
+      </table>
+    </div>
+    <!-- end: Table -->
+    <app-paginator class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator"
+      [isLoading]="isLoading" (paginate)="paginate($event)"></app-paginator>
+  </div>
+</div>

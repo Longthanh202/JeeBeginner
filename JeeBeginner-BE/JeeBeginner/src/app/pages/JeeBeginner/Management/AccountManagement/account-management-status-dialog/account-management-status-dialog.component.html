@@ -1,0 +1,33 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <div class="modal-title h4" id="example-modal-sizes-title-lg">
+      <span class="dialog-title">{{ getTitle()}}
+      </span>
+    </div>
+    <div class="modal-title" style="display: inline; flex: 2;">
+      <button [disabled]="isLoadingSubmit$ | async" [class.spinner]="isLoadingSubmit$ | async" mat-raised-button
+        style="float: right; margin: 0" class="ja_btn-addnew  " (click)="onSubmit()">{{'COMMOM.LUU' |
+        translate}}</button>
+      <button mat-raised-button style="float: right; margin: 0; margin-right: 12px;" class="ja_btn-goback "
+        (click)="goBack()">{{'COMMOM.TROLAI' | translate}}</button>
+    </div>
+  </div>
+  <div class="overlay overlay-block cursor-default modal-body overflow-auto" style="height: auto;">
+    <ng-container *ngIf="accountManagementService.isLoading$ | async">
+      <div class="overlay-layer bg-transparent">
+        <div class="spinner spinner-lg spinner-success"></div>
+      </div>
+    </ng-container>
+    <ng-container>
+      <form action="#" class="form form-label-right" [formGroup]="formGroup">
+        <div class="form-group row">
+          <div class="col-lg-12">
+            <mat-form-field class="example-full-width">
+              <input class="input-batbuoc mat-focused required" required matInput type="text" formControlName="ghichu"
+                placeholder="{{'PARTNERMANAGEMENT.GHICHU' | translate}}">
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+  </div>

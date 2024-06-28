@@ -1,0 +1,144 @@
+<!--begin::Topbar-->
+<ng-container *ngIf="extraSearchDisplay">
+  <!-- <ng-container *ngIf="extrasSearchLayout === 'offcanvas'">
+    <div class="topbar-item">
+      <div class="btn btn-icon btn-clean btn-lg mr-1" id="kt_quick_search_toggle">
+        <span [inlineSVG]="'./assets/media/svg/icons/General/Search.svg'" cacheSVG="true"
+          class="svg-icon svg-icon-xl svg-icon-primary"></span>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="extrasSearchLayout === 'dropdown'" id="kt_quick_search_toggle">
+    <div class="dropdown" id="kt_quick_search_toggle" autoClose="outside" ngbDropdown>
+      <div class="topbar-item" ngbDropdownToggle>
+        <div class="btn btn-icon btn-clean btn-lg btn-dropdown mr-1">
+          <span [inlineSVG]="'./assets/media/svg/icons/General/Search.svg'" cacheSVG="true"
+            class="svg-icon svg-icon-xl svg-icon-primary"></span>
+        </div>
+      </div>
+      <div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg" ngbDropdownMenu>
+        <app-search-dropdown-inner></app-search-dropdown-inner>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="extrasNotificationsDisplay">
+  <ng-container *ngIf="extrasNotificationsLayout === 'offcanvas'">
+    <div class="topbar-item">
+      <div class="btn btn-icon btn-icon-mobile btn-clean btn-lg mr-1 pulse pulse-primary"
+        id="kt_quick_notifications_toggle">
+        <span [inlineSVG]="'./assets/media/svg/icons/Code/Compiling.svg'" cacheSVG="true"
+          class="svg-icon svg-icon-xl svg-icon-primary"></span>
+        <span class="pulse-ring"></span>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="extrasNotificationsLayout === 'dropdown'">
+    <div class="dropdown" ngbDropdown placement="bottom">
+      <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px" ngbDropdownToggle>
+        <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1 pulse pulse-primary">
+          <span [inlineSVG]="'./assets/media/svg/icons/Code/Compiling.svg'" cacheSVG="true"
+            class="svg-icon svg-icon-xl svg-icon-primary"></span>
+          <span class="pulse-ring"></span>
+        </div>
+      </div>
+      <div ngbDropdownMenu class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-lg">
+        <form>
+          <app-notifications-dropdown-inner></app-notifications-dropdown-inner>
+        </form>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="extrasQuickActionsDisplay">
+  <ng-container *ngIf="extrasQuickActionsLayout === 'offcanvas'">
+    <div class="topbar-item">
+      <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1" id="kt_quick_actions_toggle">
+        <span [inlineSVG]="'./assets/media/svg/icons/Media/Equalizer.svg'" cacheSVG="true"
+          class="svg-icon svg-icon-xl svg-icon-primary"></span>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="extrasQuickActionsLayout === 'dropdown'">
+    <div class="dropdown" ngbDropdown placement="bottom">
+      <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px" ngbDropdownToggle>
+        <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
+          <span [inlineSVG]="'./assets/media/svg/icons/Media/Equalizer.svg'" cacheSVG="true"
+            class="svg-icon svg-icon-xl svg-icon-primary"></span>
+        </div>
+      </div>
+      <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-lg" ngbDropdownMenu>
+        <app-quick-actions-dropdown-inner></app-quick-actions-dropdown-inner>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="extrasCartDisplay">
+  <ng-container *ngIf="extrasCartLayout === 'offcanvas'">
+    <div class="topbar-item">
+      <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1" id="kt_quick_cart_toggle">
+        <span [inlineSVG]="'./assets/media/svg/icons/Shopping/Cart3.svg'" cacheSVG="true"
+          class="svg-icon svg-icon-xl svg-icon-primary"></span>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="extrasCartLayout === 'dropdown'">
+    <div class="dropdown" ngbDropdown placement="bottom">
+      <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px" ngbDropdownToggle>
+        <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
+          <span [inlineSVG]="'./assets/media/svg/icons/Shopping/Cart3.svg'" cacheSVG="true"
+            class="svg-icon svg-icon-xl svg-icon-primary"></span>
+        </div>
+      </div>
+      <div ngbDropdownMenu class="dropdown-menu p-0 m-0 dropdown-menu-xl dropdown-menu-anim-up">
+        <form>
+          <app-cart-dropdown-inner></app-cart-dropdown-inner>
+        </form>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="extrasQuickPanelDisplay">
+  <div class="topbar-item">
+    <div class="btn btn-icon btn-clean btn-lg mr-1" id="kt_quick_panel_toggle">
+      <span [inlineSVG]="'./assets/media/svg/icons/Layout/Layout-4-blocks.svg'" cacheSVG="true"
+        class="svg-icon svg-icon-xl svg-icon-primary"></span>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="extrasLanguagesDisplay">
+  <app-language-selector style="margin-top: 10px;"></app-language-selector>
+</ng-container> -->
+
+  <ng-container *ngIf="extrasUserDisplay">
+    <ng-container *ngIf="extrasUserLayout === 'offcanvas'">
+      <ng-container *ngIf="user$ as _user">
+        <!--begin::User-->
+        <div class="topbar-item">
+          <div
+            class="btn btn-icon btn-icon-mobile w-auto btn-clean d-flex align-items-center btn-lg"
+            id="kt_quick_user_toggle"
+            style="margin: 0; background: #ebf5ed; border-radius: 50px; height: 40px"
+          >
+            <span class="symbol symbol-lg-35 symbol-25 symbol-light-success mr-3">
+              <ngx-avatar [size]="40" [name]="_user['user']['Username'].slice(0, 1)" bgColor="#0d1137"> </ngx-avatar>
+            </span>
+            <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">
+              {{ _user['user']['Username'] }}
+            </span>
+          </div>
+        </div>
+        <!--end::User-->
+      </ng-container>
+    </ng-container>
+  </ng-container>
+
+  <!--end::Topbar--></ng-container
+>

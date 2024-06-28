@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  api:
+    image: ${REGISTRY_HOST}/${REGISTRY_PUBLISHER}/${PROJECT_NAME}-api:latest
+    build:
+      context: ../
+      dockerfile: ./JeeCustomer/Dockerfile
+
+  backend:
+    image: ${REGISTRY_HOST}/${REGISTRY_PUBLISHER}/${PROJECT_NAME}-backend:latest
+    build:
+      context: ../
+      dockerfile: ./Backend/JeeCustomer/${DOCKERFILE_NAME}

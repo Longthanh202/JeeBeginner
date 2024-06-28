@@ -1,0 +1,39 @@
+<div class="gridster-container" height="900px">
+  <gridster [options]="options">
+    <gridster-item [item]="widget" *ngFor="let widget of dashboard">
+      <div class=" widget-header">
+        <div class="drag-handler widget-header-child widget-header-title">
+          {{widget.name}}
+        </div>
+        <div class="widget-header-child">
+          <button mat-button class="btn btn-light" style="color: #62A4FF">
+            Bộ lọc
+          </button>&nbsp;&nbsp;
+        </div>
+        <div class="widget-header-child">
+          <button mat-button class="btn btn-light" style="color: #62A4FF">
+            + Thêm mới
+          </button>&nbsp;&nbsp;
+        </div>
+        <div class="widget-header-child widget-header-right">
+          <button mat-icon-button (click)="closeWidget(widget.id)" class="btn btn-light">
+            <span class="material-icons"
+              style="font-size: 2.4rem !important; font-weight: 500; padding-bottom: 5.5px; color: #707070">
+              close </span>
+          </button>
+        </div>
+      </div>
+      <div class="gridster-item-content" style="height: 100%">
+        <ndc-dynamic [ndcDynamicComponent]="widget.componentType" [ndcDynamicInputs]="getInput(widget)"
+          [ndcDynamicOutputs]="outputs"></ndc-dynamic>
+      </div>
+    </gridster-item>
+    <div id="button-edit-widget">
+      <div class="example-flex-container">
+        <button (click)="AddCloseWidget()" mat-mini-fab matTooltip="Thêm widget">
+          <mat-icon style="margin-top: 4px;">add</mat-icon>
+        </button>
+      </div>
+    </div>
+  </gridster>
+</div>

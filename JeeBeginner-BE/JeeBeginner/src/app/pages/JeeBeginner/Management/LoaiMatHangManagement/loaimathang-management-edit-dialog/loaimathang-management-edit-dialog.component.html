@@ -1,0 +1,133 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <div class="modal-title h4" id="example-modal-sizes-title-lg">
+      <span class="dialog-title">{{ getTitle()}}</span>
+    </div>
+  </div>
+  <div class="overlay overlay-block cursor-default modal-body overflow-auto"
+    style="min-height: 550px; max-height: 70vh">
+    <ng-container *ngIf="loaimathangManagementService.isLoading$ | async">
+      <div class="overlay-layer bg-transparent">
+        <div class="spinner spinner-lg spinner-success"></div>
+      </div>
+    </ng-container>
+    <ng-container>
+      <form action="#" class="form form-label-right" [formGroup]="formGroup" (keydown)="handleKeyDown($event)">
+        <div class="form-group row">
+          <div class="col-lg-6">
+            <mat-form-field class="example-full-width" style="margin-top: 19px">
+              <input class="input-batbuoc mat-focused required" required matInput type="text"
+                formControlName="tenloaimathang" placeholder="Tên loại mặt hàng" />
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6" *ngIf="isInitData.asObservable() | async">
+            <small>Loại mặt hàng cha</small>
+            <mat-form-field class="example-full-width">
+              <mat-select formControlName="loaimathangcha" (change)="onSelectionChangeCha($event)">
+                <mat-option *ngFor="let item of loaiMHFilters" [value]="item.IdLMHParent">
+                  {{ item.TenLMHParent }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-6">
+            <mat-form-field class="example-full-width" style="margin-top: 19px">
+              <input matInput type="text" formControlName="mota" placeholder="Mô tả" />
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6">
+            <small></small>
+            <mat-form-field class="example-full-width" style="margin-top: 19px">
+              <input class="input-batbuoc mat-focused required" required matInput type="text" formControlName="douutien"
+                (change)="onChangeNumber($event)" placeholder="Độ ưu tiên" />
+              <mat-error>Độ ưu tiên<strong> là 1 số không âm</strong></mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-6" *ngIf="isInitData.asObservable() | async">
+            <small>Kho</small>
+            <mat-form-field class="example-full-width">
+              <mat-select formControlName="kho" (change)="onSelectionChangeKho($event)">
+                <mat-option *ngFor="let itemkho of khoFilters" [value]="itemkho.IdKho">
+                  {{ itemkho.TenK }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6">
+            <div class="col-lg-2 kt-margin-bottom-10-mobile">
+              <input type="file" style="display: none" #fileInput (change)="onFileSelected1($event)"
+                formControlName="HinhAnh" multiple />
+              <button mat-raised-button class="ja_btn-addnew" style="margin-right: 10px" (click)="fileInput.click()">
+                {{ "Chọn ảnh" | translate }}
+              </button>
+            </div>
+            <div class="col-lg-4" style="margin-left: 10px">
+              <small class="form-text text-muted">Ảnh loại mặt hàng</small>
+              <div class="d-flex flex-row align-items-center overflow-hidden">
+                <div class="position-relative" style="width: 100%; height: 90px">
+                  <div class="image-container">
+                    <div *ngFor="
+                        let image of selectedImages;
+                        let i = index
+                      " class="mr-2">
+                      <div class="position-relative">
+                        <img [src]="image.url" width="80px" height="80px" style="margin-right: 10px" />
+                        <div class="image-name">{{ image.name }}</div>
+                        <div class="btn-delete">
+                          <button mat-icon-button (click)="removeImage(i)">
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-2">
+            <input type="file" style="display: none" #fileInput (change)="onFileSelected($event)"
+              formControlName="image" accept="image/*" enctype="multipart/form-data" />
+            <button mat-raised-button class="ja_btn-addnew" style="margin-right: 10px" (click)="fileInput.click()">
+              Chọn hình ảnh
+            </button>
+          </div>
+          <div class="col-md-4">
+            <img width="200px" height="100px" *ngIf="selectedImageUrl" [src]="selectedImageUrl">
+          </div> -->
+
+      </form>
+      <div class="modal-body">
+        <div class="modal-title" style="display: inline; flex: 2">
+          <button [class.spinner]="isLoadingSubmit$ | async" [disabled]="isLoadingSubmit$ | async" mat-raised-button
+            style="float: right; margin-right: 12px;" class="ja_btn-addnew" (click)="Luu()">
+            <mat-icon style="color: #ffffff; font-size: 16px" aria-hidden="false">
+              save</mat-icon>
+            Lưu và Đóng
+          </button>
+          <button mat-raised-button style="
+              float: right;
+              margin-right: 12px;
+            " class="ja_btn-addcontinue" (click)="savecontinute()" *ngIf="check">
+            <mat-icon style="color: white; font-size: 16px" aria-hidden="false">
+              checked</mat-icon>
+            Lưu và tiếp tục
+          </button>
+          <button mat-raised-button style="
+                float: right;
+                margin-right: 12px;
+              " class="ja_btn-goback" (click)="goBack()">
+            {{ "COMMOM.TROLAI" | translate }}
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

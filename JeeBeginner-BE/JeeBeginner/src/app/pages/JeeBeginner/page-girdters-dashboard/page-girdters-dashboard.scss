@@ -1,0 +1,142 @@
+gridster {
+  margin: 0;
+  padding: 0;
+  height: calc(100vh - 115px);
+  background-color: inherit;
+}
+
+:host {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+gridster-item {
+  border-radius: 7px;
+  padding: 24px;
+  padding-top: 0px;
+}
+
+.gridster-container {
+  margin: 0;
+}
+
+.top-btn-left {
+  width: 150px;
+  margin: 5px;
+}
+
+.top-btn-right {
+  width: 350px;
+  margin: 5px;
+}
+
+.widget-header {
+  display: flex;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  align-items: center;
+  white-space: nowrap;
+  height: 76px;
+  padding: 5px 5px;
+  border-bottom: 1px solid #e9ebf0;
+
+  .widget-header-title {
+    font-family: 'Roboto';
+    overflow: hidden;
+    font-size: 18px;
+    color: #000000;
+    font-weight: 600;
+    background-color: white;
+    text-overflow: ellipsis;
+    flex-grow: 1;
+    cursor: move;
+  }
+
+  .widget-header-right {
+    flex: 0 0 2;
+
+    .btn {
+      border-radius: 0.4rem;
+      height: 35px;
+      width: 35px;
+    }
+  }
+}
+
+.widget-header-btn {
+  cursor: default;
+}
+
+.header-margin-left {
+  margin-left: 5px;
+}
+
+.header-margin-right {
+  margin-right: 5px;
+}
+
+.widget-header-buttons {
+  display: inline-block;
+}
+
+app-nomination-widget {
+  height: 100%;
+}
+
+#button-edit-widget {
+  position: fixed;
+  bottom: 21px;
+  right: 20px;
+  z-index: 999;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: center;
+}
+
+::ng-deep danh-sach-right-widget {
+  .mat-expansion-panel:not([class*='mat-elevation-z']) {
+    box-shadow: none;
+    border-bottom: 1px solid #e9ebf0;
+  }
+}
+
+::ng-deep .gridster-container .card.card-custom {
+  .card-header {
+    display: none;
+  }
+
+  .angular-bootstrap-table {
+    overflow-y: hidden;
+  }
+
+  .card-body {
+    .table.table-head-custom {
+      thead,
+      th {
+        height: 50px;
+        font-weight: bold !important;
+        color: #000000 !important;
+        background-color: #f3f6f9 !important;
+      }
+      tr {
+        height: 70px;
+      }
+    }
+    .table.table-head-custom td.mat-cell {
+      font-size: 15px !important;
+
+      .jee-name {
+        font-size: 15px !important;
+      }
+
+      .mat-icon {
+        font-size: 27px !important;
+      }
+    }
+  }
+}

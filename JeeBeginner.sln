@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackEnd", "JeeBeginner-BE\BackEnd.csproj", "{1D1BCAAD-0F6B-4EFF-89E0-A0485C71B22B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JeeBeginner", "JeeBeginner-API\JeeBeginner.csproj", "{BF9C5E77-21E7-4E1E-9F62-7532B5FC3DF6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D1BCAAD-0F6B-4EFF-89E0-A0485C71B22B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D1BCAAD-0F6B-4EFF-89E0-A0485C71B22B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D1BCAAD-0F6B-4EFF-89E0-A0485C71B22B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D1BCAAD-0F6B-4EFF-89E0-A0485C71B22B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF9C5E77-21E7-4E1E-9F62-7532B5FC3DF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF9C5E77-21E7-4E1E-9F62-7532B5FC3DF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF9C5E77-21E7-4E1E-9F62-7532B5FC3DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF9C5E77-21E7-4E1E-9F62-7532B5FC3DF6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {50456777-7726-4C08-904C-DDE427246673}
+	EndGlobalSection
+EndGlobal

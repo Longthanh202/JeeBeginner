@@ -1,0 +1,83 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <div class="modal-title h4" id="example-modal-sizes-title-lg">
+      <span class="dialog-title">CHI TIẾT LOẠI MẶT HÀNG </span>
+    </div>
+  </div>
+  <div class="overlay overlay-block cursor-default modal-body overflow-auto"
+    style="min-height: 404px; max-height: 70vh">
+    <ng-container *ngIf="loaimathangManagementService.isLoading$ | async">
+      <div class="overlay-layer bg-transparent">
+        <div class="spinner spinner-lg spinner-success"></div>
+      </div>
+    </ng-container>
+    <ng-container>
+      <form action="#" class="form form-label-right" [formGroup]="formGroup">
+        <div class="form-group row">
+          <div class="col-lg-6">
+            <mat-form-field class="example-full-width" style="margin-top: 19px">
+              <input class="input-batbuoc mat-focused required" required matInput type="text"
+                formControlName="tenloaimathang" placeholder="Tên loại mặt hàng" />
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6" *ngIf="isInitData.asObservable() | async">
+            <small>Loại mặt hàng cha</small>
+            <mat-form-field class="example-full-width">
+              <mat-select formControlName="loaimathangcha" [value]="0">
+                <mat-option *ngFor="let item of loaiMHFilters" [value]="item.IdLMHParent">
+                  {{ item.TenLMHParent }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-6">
+            <mat-form-field class="example-full-width" style="margin-top: 19px">
+              <input matInput type="text" formControlName="mota" placeholder="Mô tả" />
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6">
+            <small></small>
+            <mat-form-field class="example-full-width" style="margin-top: 19px">
+              <input class="input-batbuoc mat-focused required" required matInput type="text" formControlName="douutien"
+                placeholder="Độ ưu tiên" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-6" *ngIf="isInitData.asObservable() | async">
+            <small>Kho</small>
+            <mat-form-field class="example-full-width">
+              <mat-select formControlName="kho" [value]="0">
+                <mat-option *ngFor="let itemkho of khoFilters" [value]="itemkho.IdKho">
+                  {{ itemkho.TenK }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <input type="file" style="display: none" #fileInput (change)="onFileSelected($event)"
+              formControlName="image" accept="image/*" enctype="multipart/form-data" />
+            <button mat-raised-button class="ja_btn-addnew" style="margin-right: 10px" (click)="fileInput.click()">
+              Chọn hình ảnh
+            </button>
+          </div>
+          <div class="col-md-4">
+            <img [src]="src" style="width: 150px; height: 100px;" formControlName="HinhAnh">
+          </div>
+        </div>
+      </form>
+      <div class="modal-title" style="display: inline; flex: 2">
+        <button mat-raised-button style="
+              float: right;
+              margin-right: 12px;
+            " class="ja_btn-goback" (click)="goBack()">
+          {{ "COMMOM.TROLAI" | translate }}
+        </button>
+      </div>
+    </ng-container>
+  </div>
+</div>

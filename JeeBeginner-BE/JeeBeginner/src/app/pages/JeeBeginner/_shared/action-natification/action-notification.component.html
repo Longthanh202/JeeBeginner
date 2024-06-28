@@ -1,0 +1,100 @@
+<style>
+	.swal-poppup {
+		display: none;
+		position: relative;
+		flex-direction: column;
+		justify-content: center;
+		width: 32em;
+		max-width: 100%;
+		padding: 1.25em;
+		border-radius: .3125em;
+		background: #fff;
+		font-family: inherit;
+		font-size: 1rem;
+		box-sizing: border-box;
+	}
+
+	.swal-pad {
+		display: block;
+		position: relative;
+		max-width: 100%;
+		margin: 0 0 .4em;
+		padding: 0;
+		color: #595959;
+		font-size: 14pt;
+		font-weight: normal;
+		text-align: center;
+		text-transform: none;
+		word-wrap: break-word;
+	}
+
+	::ng-deep .cdk-overlay-container .cdk-global-overlay-wrapper .cdk-overlay-pane .mat-snack-bar-container {
+		background-color: white;
+		display: block;
+		box-shadow: 0 0 70px grey;
+		border-radius: 15px;
+	}
+
+	button {
+		border-left-color: rgb(48, 133, 214);
+		border-right-color: rgb(48, 133, 214);
+		border: 0;
+		border-radius: .25em;
+		background: initial;
+		background-color: #3085d6;
+		color: #fff;
+		font-size: 0.9em;
+		padding: 3px 38px;
+		white-space: nowrap;
+	}
+
+	.m-mat-snackbar__close {
+		justify-content: center;
+	}
+
+	.m-mat-snackbar__message {
+		font-family: Arial, Helvetica, sans-serif;
+		margin: 8px auto;
+	}
+
+	.b-success {
+		color: #c0e48e;
+	}
+
+	.b-fail {
+		color: red;
+	}
+
+	i {
+		font-size: 4.0rem;
+	}
+
+	.msg-center {
+		justify-content: center;
+	}
+</style>
+
+<div class="m-mat-snackbar swal-pad">
+
+	<i class="far fa-check-circle b-success" *ngIf="data.meanMes==1"></i>
+	<i class="fa fa-times b-fail" *ngIf="data.meanMes==0"></i>
+
+	<div class="m-mat-snackbar__message msg-center" [innerHTML]="data.message"></div>
+	<div class="m-mat-snackbar__btn">
+		<button *ngIf="data.showUndoButton" type="button" mat-button color="primary" (click)="onDismissWithAction()">
+			Undo
+		</button>
+	</div>
+	<div class="m-mat-snackbar__close">
+		<!-- <button *ngIf="data.showCloseButton"
+			mat-icon-button
+			(click)="onDismiss()"
+			color="warn">
+			<mat-icon>clear</mat-icon>
+		</button> -->
+
+		<button *ngIf="data.showCloseButton" style="cursor: pointer;" (click)="onDismiss()" color="warn">
+			OK
+		</button>
+	</div>
+</div>

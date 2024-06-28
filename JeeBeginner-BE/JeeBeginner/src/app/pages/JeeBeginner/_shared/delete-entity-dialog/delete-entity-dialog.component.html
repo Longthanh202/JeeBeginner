@@ -1,0 +1,68 @@
+<style>
+	:host>>>.custom-dialog-container .mat-dialog-container {
+		padding: 0px !important;
+	}
+
+
+	.btn {
+		font-family: 'Roboto';
+		font-weight: 400;
+		font-size: 1.02rem;
+		border-radius: 3px;
+		padding: 5px 20px 5px 20px;
+	}
+
+	.btn-primary {
+		background-color: #3699ff;
+	}
+
+	.modal-body {
+		padding-bottom: 50px
+	}
+
+	.modal-footer {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+</style>
+<ng-container *ngIf="viewLoading">
+	<div class="progress progress-modal">
+		<div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar"
+			style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+	</div>
+</ng-container>
+
+<div class="modal-header">
+	<div class="modal-title h4" style="color: #16a850;">{{data.title}}</div>
+</div>
+<div class="modal-body" style="text-align: center">
+	<ng-container *ngIf="viewLoading">
+		<span>{{data.waitDesciption}}</span>
+	</ng-container>
+	<ng-container *ngIf="!data.description">
+		Bạn có muốn xoá đối tượng này không? Lưu ý: Một khi đã xoá thì không thể hoàn tác.
+	</ng-container>
+	<ng-container *ngIf="!viewLoading">
+		<span>{{data.description}}</span>
+	</ng-container>
+</div>
+
+<div class="modal-footer">
+	<div *ngIf="data.isDel == true">
+		<button type="button" class="btn btn-primary btn-elevate" (click)="onNoClick()">
+			{{data.nameButtonCancel?data.nameButtonCancel:'Không'}}
+		</button>&nbsp;&nbsp;
+		<button type="button" class="btn btn-light btn-elevate mr-1" (click)="onYesClick()">
+			{{data.nameButtonCancel?data.nameButtonOK:'Có'}}
+		</button>
+	</div>
+	<div *ngIf="data.isDel != true">
+		<!-- các xác nhận khác xóa -->
+		<button type="button" class="btn btn-light btn-elevate mr-1" (click)="onNoClick()">
+			{{data.nameButtonCancel?data.nameButtonCancel:'Không'}}
+		</button>&nbsp;&nbsp;
+		<button type="button" class="btn btn-primary btn-elevate" (click)="onYesClick()">
+			{{data.nameButtonCancel?data.nameButtonOK:'Có'}}
+		</button>
+	</div>
+</div>

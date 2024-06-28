@@ -1,0 +1,58 @@
+<!-- begin: Filtration form -->
+<div class="sreach-advance-container" (clickOutside2)="clickOutSideFilter()">
+  <div class="search" [formGroup]="searchGroup">
+    <span style="padding-left: 0.69rem" class="svg-icon" [inlineSVG]="'./assets/media/svg/icons/General/Search.svg'"></span>
+    <input type="text" class="form-control" [placeholder]="titlekeyword" formControlName="keyword" />
+    <button mat-icon-button>
+      <mat-icon (click)="clearFilter()">close</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon (click)="clickShowFilter(this.showFilter)">arrow_drop_down</mat-icon>
+    </button>
+  </div>
+  <div style="padding-left: 0.69rem; padding-right: 0.69rem" class="filter" *ngIf="showFilter == true">
+    <form action="#" class="form form-label-right" [formGroup]="filterGroup">
+      <div class="row">
+        <div class="col-lg-4">
+          <span class="text-keyword">{{ 'SEARCH.KEYWORD' | translate }}</span>
+        </div>
+        <div class="col-lg-8">
+          <mat-form-field class="example-full-width">
+            <input class="input-thuong" formControlName="keyword" matInput />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" *ngIf="showSearch.username">
+        <div class="col-lg-4">
+          <span class="text">{{ 'SEARCH.TENDANGNHAP' | translate }}</span>
+        </div>
+        <div class="col-lg-8">
+          <mat-form-field class="example-full-width">
+            <input class="input-thuong" formControlName="username" matInput />
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="row" *ngIf="showSearch.isAdmin">
+          <div class="col-lg-12">
+            <mat-checkbox [(ngModel)]="isAdmin"><span class="text">IsAdmin</span></mat-checkbox>
+          </div>
+        </div>
+        <div class="row" *ngIf="showSearch.dakhoa">
+          <div class="col-lg-12">
+            <mat-checkbox [(ngModel)]="daKhoa"
+              ><span class="text">{{ 'SEARCH.NOTACTIVE' | translate }}</span></mat-checkbox
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 click-search mb-5">
+        <button mat-raised-button class="ja_button ja_btn-addnew" (click)="clickSearch()">{{ 'SEARCH.TIMKIEM' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end: Filtration form -->

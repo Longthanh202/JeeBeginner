@@ -1,0 +1,469 @@
+<div class="card card-custom gutter-b">
+    <div class="card-header">
+      <div class="card-title">
+        <span class="card-label">{{
+          "MATHANGMANAGEMENT.MATHANG" | translate
+        }}</span>
+      </div>
+      <div class="card-toolbar">
+        <button
+          mat-raised-button
+          class="ja_btn-addnew"
+          style="margin-right: 10px"
+          (click)="import()"
+          *ngIf="Visible"
+        >
+          <mat-icon style="color: #ffffff; font-size: 16px" aria-hidden="false">
+            import_contacts</mat-icon
+          >{{ "Import dữ liệu" | translate }}
+        </button>
+        <button
+          mat-raised-button
+          class="ja_btn-addnew"
+          style="margin-right: 10px"
+          (click)="create()"
+          *ngIf="Visible"
+        >
+          {{ "COMMOM.THEMMOI" | translate }}
+        </button>
+      </div>
+    </div>
+  
+    <!-- body -->
+    <div class="card-body">
+      <div class="kt-form">
+        <div class="kt-form__filtration">
+          <div class="row align-items-center">
+            <div
+              class="col-md-6 kt-margin-bottom-10-mobile"
+              [formGroup]="searchGroup"
+            >
+              <mat-form-field class="mat-form-field-fluid">
+                <input
+                  matInput
+                  placeholder="Tìm kiếm"
+                  #searchInput
+                  name="searchText"
+                  formControlName="searchTerm"
+                />
+                <mat-hint align="start">
+                  Tìm kiếm <strong>tất cả dữ liệu</strong>
+                </mat-hint>
+              </mat-form-field>
+            </div>
+  
+            <div class="col-md-3 kt-margin-bottom-10-mobile">
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-select
+                  multiple
+                  [(ngModel)]="selectIdLMH"
+                  placeholder="Loại mặt hàng"
+                  (ngModelChange)="SelectIdLMH($event)"
+                >
+                  <mat-option>
+                    <ngx-mat-select-search
+                      [placeholderLabel]="'Tìm kiếm...'"
+                      [noEntriesFoundLabel]="'Không tìm thấy kết quả phù hợp'"
+                      [(ngModel)]="IdLMHFilterCtrl"
+                      (ngModelChange)="filterIdLMH()"
+                    >
+                    </ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option
+                    *ngFor="let tmp of filteredIdLMH | async"
+                    value="{{ tmp.IdLMH }}"
+                  >
+                    {{ tmp.TenLMH }}
+                  </mat-option>
+                  <div
+                    class="row align-items-center"
+                    style="margin: 10px 0px; border-top: 1px solid #0000001a"
+                  >
+                    <div class="col-md-8 kt-margin-bottom-10-mobile"></div>
+                    <div class="col-md-2 kt-margin-bottom-10-mobile">
+                      <span
+                        (click)="ClearIdLMH()"
+                        *ngIf="haveElementIdLMH"
+                        id="spanOptions"
+                        style="
+                          margin-top: 14%;
+                          font-size: small;
+                          font-family: sans-serif;
+                          border-radius: 5px;
+                        "
+                        class="kt-badge kt-badge--inline kt-badge--pill kt-badge--metal kt-badge--wide"
+                      >
+                        <mat-icon style="margin-top: 10%" class="mat-Icon-update"
+                          >clear</mat-icon
+                        >
+                        Clear&nbsp;&nbsp;
+                      </span>
+                    </div>
+                  </div>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-3 kt-margin-bottom-10-mobile">
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-select
+                  multiple
+                  [(ngModel)]="selectIdDVT"
+                  placeholder="Đơn vị tính"
+                  (ngModelChange)="SelectIdDVT($event)"
+                >
+                  <mat-option>
+                    <ngx-mat-select-search
+                      [placeholderLabel]="'Tìm kiếm...'"
+                      [noEntriesFoundLabel]="'Không tìm thấy kết quả phù hợp'"
+                      [(ngModel)]="IdDVTFilterCtrl"
+                      (ngModelChange)="filterIdDVT()"
+                    >
+                    </ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option
+                    *ngFor="let tmp of filteredIdDVT | async"
+                    value="{{ tmp.IdDVT }}"
+                  >
+                    {{ tmp.TenDVT }}
+                  </mat-option>
+                  <div
+                    class="row align-items-center"
+                    style="margin: 10px 0px; border-top: 1px solid #0000001a"
+                  >
+                    <div class="col-md-8 kt-margin-bottom-10-mobile"></div>
+                    <div class="col-md-2 kt-margin-bottom-10-mobile">
+                      <span
+                        (click)="ClearIdDVT()"
+                        *ngIf="haveElementIdDVT"
+                        id="spanOptions"
+                        style="
+                          margin-top: 14%;
+                          font-size: small;
+                          font-family: sans-serif;
+                          border-radius: 5px;
+                        "
+                        class="kt-badge kt-badge--inline kt-badge--pill kt-badge--metal kt-badge--wide"
+                      >
+                        <mat-icon style="margin-top: 10%" class="mat-Icon-update"
+                          >clear</mat-icon
+                        >
+                        Clear&nbsp;&nbsp;
+                      </span>
+                    </div>
+                  </div>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-3 kt-margin-bottom-10-mobile">
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-select
+                  multiple
+                  [(ngModel)]="selectIdNhanHieu"
+                  placeholder="Nhãn hiệu"
+                  (ngModelChange)="SelectIdNhanHieu($event)"
+                >
+                  <mat-option>
+                    <ngx-mat-select-search
+                      [placeholderLabel]="'Tìm kiếm...'"
+                      [noEntriesFoundLabel]="'Không tìm thấy kết quả phù hợp'"
+                      [(ngModel)]="IdNhanHieuFilterCtrl"
+                      (ngModelChange)="filterIdNhanHieu()"
+                    >
+                    </ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option
+                    *ngFor="let tmp of filteredIdNhanHieu | async"
+                    value="{{ tmp.IdNhanHieu }}"
+                  >
+                    {{ tmp.TenNhanHieu }}
+                  </mat-option>
+                  <div
+                    class="row align-items-center"
+                    style="margin: 10px 0px; border-top: 1px solid #0000001a"
+                  >
+                    <div class="col-md-8 kt-margin-bottom-10-mobile"></div>
+                    <div class="col-md-2 kt-margin-bottom-10-mobile">
+                      <span
+                        (click)="ClearIdNhanHieu()"
+                        *ngIf="haveElementIdNhanHieu"
+                        id="spanOptions"
+                        style="
+                          margin-top: 14%;
+                          font-size: small;
+                          font-family: sans-serif;
+                          border-radius: 5px;
+                        "
+                        class="kt-badge kt-badge--inline kt-badge--pill kt-badge--metal kt-badge--wide"
+                      >
+                        <mat-icon style="margin-top: 10%" class="mat-Icon-update"
+                          >clear</mat-icon
+                        >
+                        Clear&nbsp;&nbsp;
+                      </span>
+                    </div>
+                  </div>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-3 kt-margin-bottom-10-mobile">
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-select
+                  multiple
+                  [(ngModel)]="selectIdXuatXu"
+                  placeholder="Xuất xứ"
+                  (ngModelChange)="SelectIdXuatXu($event)"
+                >
+                  <mat-option>
+                    <ngx-mat-select-search
+                      [placeholderLabel]="'Tìm kiếm...'"
+                      [noEntriesFoundLabel]="'Không tìm thấy kết quả phù hợp'"
+                      [(ngModel)]="IdXuatXuFilterCtrl"
+                      (ngModelChange)="filterIdXuatXu()"
+                    >
+                    </ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option
+                    *ngFor="let tmp of filteredIdXuatXu | async"
+                    value="{{ tmp.IdXuatXu }}"
+                  >
+                    {{ tmp.TenXuatXu }}
+                  </mat-option>
+                  <div
+                    class="row align-items-center"
+                    style="margin: 10px 0px; border-top: 1px solid #0000001a"
+                  >
+                    <div class="col-md-8 kt-margin-bottom-10-mobile"></div>
+                    <div class="col-md-2 kt-margin-bottom-10-mobile">
+                      <span
+                        (click)="ClearIdXuatXu()"
+                        *ngIf="haveElementIdXuatXu"
+                        id="spanOptions"
+                        style="
+                          margin-top: 14%;
+                          font-size: small;
+                          font-family: sans-serif;
+                          border-radius: 5px;
+                        "
+                        class="kt-badge kt-badge--inline kt-badge--pill kt-badge--metal kt-badge--wide"
+                      >
+                        <mat-icon style="margin-top: 10%" class="mat-Icon-update"
+                          >clear</mat-icon
+                        >
+                        Clear&nbsp;&nbsp;
+                      </span>
+                    </div>
+                  </div>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+  
+        <div
+          class="row align-items-center collapse kt-form__group-actions kt-margin-top-20 kt-margin-bottom-20"
+          [ngClass]="{ show: selection.selected.length > 0 }"
+        >
+          <div class="col-xl-12">
+            <div class="kt-form__group kt-form__group--inline">
+              <div
+                class="kt-form__label kt-form__label-no-wrap"
+                style="float: left; margin-right: 10px; margin-top: 10px"
+              >
+                <label class="kt--font-bold kt-font-danger-" *ngIf="Visible"
+                  >Số lượng đã chọn: {{ selection.selected.length }}</label
+                >
+              </div>
+              <div
+                class="kt-form__control kt-form__group--inline"
+                style="float: left"
+              >
+                <button
+                  mat-raised-button
+                  color="warn"
+                  (click)="deleteDM_MatHangs()"
+                  matTooltip="Xóa mặt hàng được chọn"
+                  class="mat-button-mt-4"
+                  *ngIf="Visible"
+                >
+                  <mat-icon>delete</mat-icon>
+                  {{ "Xóa mặt hàng" | translate }}</button
+                >&nbsp;
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="table-responsive angular-bootstrap-table"
+        [ngStyle]="{ height: getHeight() }"
+      >
+        <table
+          mat-table
+          class="table table-head-custom table-vertical-center overflow-hidden"
+          [dataSource]="mathangManagementService.items$ | async"
+        >
+          <ng-container matColumnDef="CheckBox">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="mat-column-checkbox"
+              style="padding-right: 20px"
+            >
+              <mat-checkbox
+                (change)="$event ? masterToggle() : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()"
+                [color]="'primary'"
+              >
+              </mat-checkbox>
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let row"
+              class="mat-column-checkbox"
+              style="padding-right: 20px; width: 20px"
+            >
+              <mat-checkbox
+                (click)="$event.stopPropagation()"
+                (change)="$event ? selection.toggle(row) : null"
+                [checked]="selection.isSelected(row)"
+                [color]="'primary'"
+              >
+              </mat-checkbox>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="select">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="mat-column-checkbox"
+              style="padding-right: 20px"
+            >
+              <mat-checkbox
+                (change)="$event ? masterToggle() : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()"
+                [color]="'primary'"
+              >
+              </mat-checkbox>
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let row"
+              class="mat-column-checkbox"
+              style="padding-right: 20px; width: 20px"
+            >
+              <mat-checkbox
+                (click)="$event.stopPropagation()"
+                (change)="$event ? selection.toggle(row) : null"
+                [checked]="selection.isSelected(row)"
+                [color]="'primary'"
+              >
+              </mat-checkbox>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="stt">
+            <th *matHeaderCellDef class="mat-column-vinCode">
+              <span>#</span>
+            </th>
+            <td mat-cell *matCellDef="let r; let i = index">
+              <span>{{ i + 1 }}</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="hinhanh">
+            <th *matHeaderCellDef class="mat-column-vinCode">
+              <span>Hình ảnh</span>
+            </th>
+            <td mat-cell *matCellDef="let r">
+              <span>
+                <img width="50px" height="50px" [src]="getImageUrl(r.HinhAnh)">
+              </span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="mahang">
+            <th *matHeaderCellDef class="mat-column-vinCode">
+              <span>Mã Hàng</span>
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let r"
+            >
+              <span>{{ r.MaHang }}</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="tenmathang">
+            <th *matHeaderCellDef>
+              <span>Tên mặt hàng</span>
+            </th>
+            <td mat-cell *matCellDef="let r">
+              <!-- <span>{{ r.TenMatHang }}</span> -->
+              <span class="link" (click)="showDetail(r)"
+                            style="text-decoration: underline; color: #2180df">{{r.TenMatHang}}</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="soKyTinhKhauHaoToiThieu">
+            <th *matHeaderCellDef>
+              <span>Số kỳ tính khấu hao tối thiểu</span>
+            </th>
+            <td mat-cell *matCellDef="let r">
+              <span>{{ r.SoKyTinhKhauHaoToiThieu.toLocaleString("vi-VN") }}</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="soKyTinhKhauHaoToiDa">
+            <th *matHeaderCellDef>
+              <span>Số kỳ tính khấu hao tối đa</span>
+            </th>
+            <td mat-cell *matCellDef="let r">
+              <span>{{ r.SoKyTinhKhauHaoToiDa.toLocaleString("vi-VN") }}</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="thaotac">
+            <th *matHeaderCellDef style="text-align: center">
+              <span>{{ "COMMOM.THAOTHAC" | translate }}</span>
+            </th>
+            <td mat-cell *matCellDef="let r" style="text-align: center">
+              <mat-icon
+                (click)="update(r)"
+                style="cursor: pointer; color: #2a89f6; font-size: 16px"
+                aria-hidden="false"
+                *ngIf="Visible"
+              >
+                mode_edit</mat-icon
+              >
+              &nbsp;
+              <mat-icon
+                (click)="delete(r)"
+                style="cursor: pointer; color: #f52020; font-size: 16px"
+                aria-hidden="false"
+                *ngIf="Visible"
+              >
+                delete</mat-icon
+              >
+              &nbsp;
+            </td>
+          </ng-container>
+  
+          <tr
+            mat-header-row
+            *matHeaderRowDef="displayedColumns; sticky: true"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+            (click)="row.highlighted = !row.highlighted"
+            [ngClass]="{ hovered: row.hovered, highlighted: row.highlighted }"
+            (mouseover)="row.hovered = true"
+            (mouseout)="row.hovered = false"
+          ></tr>
+        </table>
+      </div>
+      <!-- end: Table -->
+      <app-paginator
+        class="d-flex justify-content-between align-items-center flex-wrap"
+        [paginator]="paginator"
+        [isLoading]="isLoading"
+        (paginate)="paginate($event)"
+      ></app-paginator>
+    </div>
+  </div>
+  

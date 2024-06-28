@@ -1,0 +1,54 @@
+<div class="modal-content" [ngClass]="{ expanded: isExpanded, collapsed: !isExpanded }">
+    <div class="modal-header">
+      <div class="modal-title h4" id="example-modal-sizes-title-lg">
+        <span class="dialog-title">IMPORT DỮ LIỆU</span>
+      </div>
+    </div>
+    <div class="overlay overlay-block cursor-default modal-body overflow-auto"
+      style="min-height: 180px; max-height: 70vh">
+      <ng-container *ngIf="loaitaisanManagementService.isLoading$ | async">
+        <div class="overlay-layer bg-transparent">
+          <div class="spinner spinner-lg spinner-success"></div>
+        </div>
+      </ng-container>
+      <ng-container>
+        <div class="form-group row">
+          <div class="col-lg-8">
+            <mat-form-field class="example-full-width">
+              <input class="input-batbuoc mat-focused required" required matInput type="text" [value]="filename" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4">
+            <button mat-raised-button class="ja_btn-addnew" (click)="fileInput.click()">{{ "Chọn file" | translate }}</button>
+            <input type="file" style="display: none" #fileInput (change)="onFileChange($event)" accept=".xlsx, .xls">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-2" style="margin-left: 10px;">
+            <button mat-raised-button class="ja_btn-addnew" (click)="import()">{{ "Import dữ liệu" |
+              translate}}</button>
+          </div>
+          <div class="col-lg-2">
+            <button mat-raised-button style="
+              float: right;
+              margin-right: 12px;
+              color: white;
+              background-color: green;
+            " class="ja_btn-goback" (click)="downloadTemplate()">
+              {{ "Tải file mẫu" }}
+            </button>
+          </div>
+        </div>
+        <div class="modal-title" style="display: inline; flex: 2">
+          <button mat-raised-button style="
+                float: right;
+                margin-right: 12px;
+                color: #989898;
+                background-color: #f3f1f1;
+              " class="ja_btn-goback" (click)="goBack()">
+            {{ "Trở lại" }}
+          </button>
+        </div>
+    </ng-container>
+  </div>
+  </div>
