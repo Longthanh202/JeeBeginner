@@ -35,6 +35,8 @@
 
    ![image](https://github.com/user-attachments/assets/d1a99195-e87a-468b-bffd-42270b7487d1)
 
+Bên trên chỉ là một số hình ảnh minh họa cho dự án. Ngoài ra còn có nhiều chức năng khác.
+
 
 
 
