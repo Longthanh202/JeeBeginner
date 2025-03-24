@@ -2,6 +2,7 @@
 ## Công nghệ sử dụng
  - .Net 5
  - Angular
+ - Material UI
 
 ## Các chức năng chính
  * Quản lý các mặt hàng, xuất xứ, danh mục tài sản.
