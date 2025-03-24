@@ -3,6 +3,10 @@
  - .Net 5
  - Angular
 
+## Các chức năng chính
+ * Quản lý các mặt hàng, xuất xứ, danh mục tài sản.
+ * Quản lý tài khoản và phân quyền truy cập sử dụng JWT.
+
 ##### Hình ảnh minh họa
 
 1. Page Admin quản lý mặt hàng
